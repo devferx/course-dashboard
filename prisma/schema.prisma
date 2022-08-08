@@ -21,14 +21,13 @@ model Course {
     status      CourseStatus
     teacher     User         @relation(fields: [userId], references: [id])
     duration    Int
-    Module      Module[]
+    module      Module[]
     price       Int
     currency    String
     imageUrl    String
     description String
     lessons     Lesson[]
     userId      String
-    role        UserRole
     createdAt   DateTime     @default(now())
     updatedAt   DateTime     @updatedAt
 }
@@ -39,14 +38,15 @@ enum CourseStatus {
 }
 
 model User {
-    id        String   @id @default(uuid())
-    name      String
-    email     String
-    password  String
-    role      UserRole
-    Course    Course[]
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id         String   @id @default(uuid())
+    name       String
+    email      String
+    password   String
+    profilePic String   @default("https://i.ibb.co/6Y7ZrLm/pngtree-user-vector-avatar-png-image-1541962.jpg")
+    role       UserRole
+    courses    Course[]
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
 }
 
 enum UserRole {
@@ -59,10 +59,11 @@ model Lesson {
     id          String   @id @default(uuid())
     title       String
     slug        String
-    // module  Module
+    module      Module   @relation(fields: [moduleId], references: [id])
+    moduleId    String
     videoLink   String
     description String
-    Course      Course   @relation(fields: [courseId], references: [id])
+    course      Course   @relation(fields: [courseId], references: [id])
     courseId    String
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
@@ -78,7 +79,8 @@ model Module {
     title     String
     slug      String
     order     Int
-    Course    Course   @relation(fields: [courseId], references: [id])
+    course    Course   @relation(fields: [courseId], references: [id])
+    lessons   Lesson[]
     courseId  String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
