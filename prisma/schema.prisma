@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Example {
+    id String @id @default(cuid())
+}
+
+model Course {
+    id          String       @id @default(uuid())
+    name        String
+    slug        String
+    status      CourseStatus
+    teacher     User         @relation(fields: [userId], references: [id])
+    duration    Int
+    Module      Module[]
+    price       Int
+    currency    String
+    imageUrl    String
+    description String
+    lessons     Lesson[]
+    userId      String
+    role        UserRole
+    createdAt   DateTime     @default(now())
+    updatedAt   DateTime     @updatedAt
+}
+
+enum CourseStatus {
+    PUBLISHED
+    DRAFT
+}
+
+model User {
+    id        String   @id @default(uuid())
+    name      String
+    email     String
+    password  String
+    role      UserRole
+    Course    Course[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+enum UserRole {
+    ADMIN
+    TEACHER
+    STUDENT
+}
+
+model Lesson {
+    id          String   @id @default(uuid())
+    title       String
+    slug        String
+    // module  Module
+    videoLink   String
+    description String
+    Course      Course   @relation(fields: [courseId], references: [id])
+    courseId    String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+enum LenssonStatus {
+    PUBLIC
+    PRIVATE
+}
+
+model Module {
+    id        String   @id @default(uuid())
+    title     String
+    slug      String
+    order     Int
+    Course    Course   @relation(fields: [courseId], references: [id])
+    courseId  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
