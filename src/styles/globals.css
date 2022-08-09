@@ -1,3 +1,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary: #3499e2;
+  --blue: #54c5eb;
+  --black: #22242c;
+  --gray2: #f5f5f5;
+  --white: #ffffff;
+  --red: #ff4a55;
+  --orange: #ffb74a;
+  --green: #00a389;
+  --purple10: #6160dc;
+
+  --linear1: linear-gradient(90deg, #6160dc 0%, #6160dc 100%);
+  --linear2: linear-gradient(90deg, #54c5eb 0%, #54c5eb 100%);
+  --linear3: linear-gradient(89deg, #6160dc 0%, #54c5eb 100%);
+
+  --text-text1regular: 400 1.125rem / normal Inter;
+  --text-text2regular: 400 0.875rem / normal Inter;
+  --text-text1medium: 500 1.125rem / normal Inter;
+  --text-text2medium: 500 0.875rem / normal Inter;
+  --text-text1semibold: semi bold 1.125rem / normal Inter;
+  --text-text2semibold: semi bold 0.875rem / normal Inter;
+  --heading-heading1: 700 2.25rem / normal Inter;
+  --heading-heading2: 700 1.5rem / normal Inter;
+  --heading-heading3: 700 1.125rem / normal Inter;
+  --heading-heading4: 700 1rem / normal Inter;
+  --heading-heading5: 700 0.875rem / normal Inter;
+}
+
+.text1-regular {
+  font: var(--text-text1regular);
+}
+.text2-regular {
+  font: var(--text-text2regular);
+}
+.text1-medium {
+  font: var(--text-text1medium);
+}
+.text2-medium {
+  font: var(--text-text2medium);
+}
+.text1-semibold {
+  font: var(--text-text1semibold);
+}
+.text2-semibold {
+  font: var(--text-text2semibold);
+}
+.heading1 {
+  font: var(--heading-heading1);
+}
+.heading2 {
+  font: var(--heading-heading2);
+}
+.heading3 {
+  font: var(--heading-heading3);
+}
+.heading4 {
+  font: var(--heading-heading4);
+}
+.heading5 {
+  font: var(--heading-heading5);
+}

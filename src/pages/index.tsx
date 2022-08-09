@@ -22,7 +22,9 @@ const Home: NextPage = () => {
       <main>
         <ul>
           {courses.data?.map((course) => (
-            <li key={course.id}>{course.name}</li>
+            <li className="heading1" key={course.id}>
+              {course.name}
+            </li>
           ))}
         </ul>
       </main>
