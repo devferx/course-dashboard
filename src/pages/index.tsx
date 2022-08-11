@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useEffect } from "react";
 import { trpc } from "../utils/trpc";
 
 type TechnologyCardProps = {
@@ -10,6 +11,15 @@ type TechnologyCardProps = {
 
 const Home: NextPage = () => {
   const courses = trpc.useQuery(["courses.getAll"]);
+  const deleteCourseMutation = trpc.useMutation("courses.delete", {
+    onSuccess: () => {
+      courses.refetch();
+    },
+  });
+
+  const onDelete = (id: string) => {
+    deleteCourseMutation.mutate({ id });
+  };
 
   return (
     <>
@@ -24,9 +34,11 @@ const Home: NextPage = () => {
           {courses.data?.map((course) => (
             <li className="heading1" key={course.id}>
               {course.name}
+              <button onClick={() => onDelete(course.id)}>Delete</button>
             </li>
           ))}
         </ul>
+        <pre></pre>
       </main>
     </>
   );
