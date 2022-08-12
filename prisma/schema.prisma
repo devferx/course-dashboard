@@ -29,6 +29,8 @@ model Course {
     userId      String
     createdAt   DateTime     @default(now())
     updatedAt   DateTime     @updatedAt
+
+    @@unique([slug])
 }
 
 enum CourseStatus {

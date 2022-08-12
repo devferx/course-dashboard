@@ -5,7 +5,10 @@ import { CourseStatus } from "@prisma/client";
 export const coursesRouter = createRouter()
   .query("getAll", {
     async resolve({ ctx }) {
-      return await ctx.prisma.course.findMany();
+      const courses = await ctx.prisma.course.findMany({});
+      const count = await ctx.prisma.course.count();
+
+      return { courses, count };
     },
   })
   .mutation("create", {
@@ -46,6 +49,18 @@ export const coursesRouter = createRouter()
       return await ctx.prisma.course.delete({
         where: {
           id: input.id,
+        },
+      });
+    },
+  })
+  .mutation("deleteMany", {
+    input: z.array(z.string()),
+    async resolve({ ctx, input }) {
+      return await ctx.prisma.course.deleteMany({
+        where: {
+          id: {
+            in: input,
+          },
         },
       });
     },
