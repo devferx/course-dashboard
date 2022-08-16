@@ -48,7 +48,7 @@ const NewCoursePage: NextPage = () => {
   ) => {
     const { name, value } = e.target;
 
-    setForm((prev) => ({ ...prev, [name]: isNumber ? Number(value) : value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
@@ -60,12 +60,15 @@ const NewCoursePage: NextPage = () => {
   };
 
   const saveForm = () => {
-    createCourseMutation.mutate(form, {
-      onSuccess: (resp) => {
-        console.log(resp);
-        router.push("/");
-      },
-    });
+    createCourseMutation.mutate(
+      { ...form, duration: Number(form.duration), price: Number(form.price) },
+      {
+        onSuccess: (resp) => {
+          console.log(resp);
+          router.push("/");
+        },
+      }
+    );
   };
 
   if (error) {
