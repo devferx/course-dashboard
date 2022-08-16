@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Paper,
   TableContainer,
@@ -11,6 +12,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import type { Course } from "@prisma/client";
+
 import { Button } from "./Button";
 
 interface CourseTableProps {
@@ -81,27 +83,66 @@ export const CourseTable = ({
                   onClick={selectAllCourses}
                 />
               </TableCell>
-              <TableCell>Nombre del curso</TableCell>
-              <TableCell>Slug</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Precio</TableCell>
-              <TableCell>Duración</TableCell>
+              <TableCell>
+                <span className="text1-semibold">Nombre del curso</span>
+              </TableCell>
+              <TableCell>
+                <span className="text1-semibold">Slug</span>
+              </TableCell>
+              <TableCell>
+                <span className="text1-semibold">Status</span>
+              </TableCell>
+              <TableCell>
+                <span className="text1-semibold">Precio</span>
+              </TableCell>
+              <TableCell>
+                <span className="text1-semibold">Duración</span>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {courses.map((course) => (
               <TableRow key={course.id}>
-                <TableCell>
+                <TableCell className="py-8">
                   <Checkbox
                     checked={selectedCourses.includes(course.id)}
                     onClick={() => toggleCourse(course.id)}
                   />
                 </TableCell>
-                <TableCell>{course.name}</TableCell>
-                <TableCell>{course.slug}</TableCell>
-                <TableCell>{course.status}</TableCell>
-                <TableCell> {`${course.price} ${course.currency}`}</TableCell>
-                <TableCell>{course.duration}</TableCell>
+                <TableCell>
+                  <div className="flex gap-4 justify-start items-center">
+                    <Image
+                      className="h-8 w-8 object-cover"
+                      src={course.imageUrl}
+                      width={48}
+                      height={48}
+                      alt={`${course.name} icon`}
+                    />
+                    <span className="text1-semibold">{course.name}</span>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <span className="text1-semibold">{course.slug}</span>
+                </TableCell>
+                <TableCell>
+                  <span
+                    className={`${
+                      course.status === "PUBLISHED" ? "bg-green" : "bg-gray3"
+                    } py-4 px-6 rounded-full text2-regular text-white`}
+                  >
+                    {course.status}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <span
+                    className={`bg-[#6E1DD6] py-4 px-6 rounded-full text2-regular text-white`}
+                  >
+                    {`${course.price} ${course.currency}`}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <span className="text1-semibold">{course.duration} hr</span>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
