@@ -52,7 +52,7 @@ export const CourseTable = ({
   };
 
   return (
-    <>
+    <div>
       <div className="flex aling-center justify-between">
         <h3 className="heading1">Todos los cursos ({count})</h3>
         <div className="flex gap-4">
@@ -148,6 +148,6 @@ export const CourseTable = ({
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </div>
   );
 };
