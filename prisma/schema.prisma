@@ -21,7 +21,7 @@ model Course {
     status      CourseStatus
     teacher     User         @relation(fields: [userId], references: [id])
     duration    Int
-    module      Module[]
+    modules     Module[]
     price       Int
     currency    String
     imageUrl    String
@@ -84,4 +84,6 @@ model Module {
     courseId  String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    @@unique([courseId, slug])
 }
