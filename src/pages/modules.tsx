@@ -34,6 +34,7 @@ const ModulesPage: NextPage = () => {
         <SearchInput
           value={searchInput}
           onChange={(ev) => setSearchInput(ev.target.value)}
+          placeholder="Buscar modulo"
         />
         <ModulesTable
           count={modules.data?.count ?? 0}
